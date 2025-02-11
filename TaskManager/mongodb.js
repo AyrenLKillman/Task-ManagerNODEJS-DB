@@ -1,3 +1,4 @@
+
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 
@@ -13,11 +14,20 @@ async function run() {
 
         const db = client.db(databaseName)
 
-        db.collection('users').insertOne({
-            name: 'bob',
-            age: 69
-        })
-
+        db.collection('tasks').insertMany([
+          {
+            description: "chez",
+            comp: true
+          },
+          {
+            description: "cbdsaf",
+            comp: true
+          },
+          {
+            description: "chokolat",
+            comp: true
+          }
+        ])
 
 
     } catch (error){
@@ -29,6 +39,4 @@ async function run() {
     }
   }
   run().catch(console.dir);
-
-//! vid 7
-
+//! 10.8
