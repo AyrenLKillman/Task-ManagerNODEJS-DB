@@ -1,42 +1,36 @@
 
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
+const {MongoClient, ObjectId } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
 
+
 const client = new MongoClient(connectionURL);
 
-async function run() {
+async function Serverz() {
     try {
       await client.connect();
         //operation stuff
 
-        const db = client.db(databaseName)
+        const database = client.db(databaseName)
+        const collection = database.collection('namesIguess');
 
-        db.collection('tasks').insertMany([
-          {
-            description: "chez",
-            comp: true
-          },
-          {
-            description: "cbdsaf",
-            comp: true
-          },
-          {
-            description: "chokolat",
-            comp: true
-          }
+        const docs =  await collection.insertMany([
+          { name: "Jen", age: 21 },
+          { name: "Jod", age: 56 },
+          { name: "Glen", age: 103 }
         ])
+  
+
+        console.log("if you see dis it worked :3")
 
 
-    } catch (error){
-        if(error) {
-            return console.log('failed to connect :(')
-        }
+
+
+
     } finally {
       await client.close();
     }
   }
-  run().catch(console.dir);
+  Serverz().catch(console.dir);
 //! 10.8
