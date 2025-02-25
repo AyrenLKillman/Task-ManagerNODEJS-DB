@@ -5,6 +5,7 @@ const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
 
 
+
 const client = new MongoClient(connectionURL);
 
 async function Serverz() {
@@ -13,18 +14,15 @@ async function Serverz() {
         //operation stuff
 
         const database = client.db(databaseName)
-        const collection = database.collection('namesIguess');
 
-        const docs =  await collection.insertMany([
-          { name: "Jen", age: 21 },
-          { name: "Jod", age: 56 },
-          { name: "Glen", age: 103 }
-        ])
-  
+      const finding = database.collection('tasks').find({task: 'clean'})
 
-        console.log("if you see dis it worked :3")
+      
 
+      result = await finding.toArray()
+      
 
+      console.log(result)
 
 
 
@@ -33,4 +31,4 @@ async function Serverz() {
     }
   }
   Serverz().catch(console.dir);
-//! 10.8
+//!
