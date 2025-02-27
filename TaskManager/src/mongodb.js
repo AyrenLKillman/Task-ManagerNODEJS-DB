@@ -13,17 +13,15 @@ async function Serverz() {
       await client.connect();
         //operation stuff
 
-        const database = client.db(databaseName)
+        const db = client.db(databaseName)
 
-      const finding = database.collection('tasks').find({task: 'clean'})
-
-      
-
-      result = await finding.toArray()
-      
-
-      console.log(result)
-
+      db.collection('users').deleteOne({
+        task: "clean"
+      }).then((result) => {
+        console.log(result)
+      }).catch((error) => {
+        console.log(error)
+      })
 
 
     } finally {
@@ -32,3 +30,7 @@ async function Serverz() {
   }
   Serverz().catch(console.dir);
 //!
+
+//"67bcca73325006112a19849b"
+
+
