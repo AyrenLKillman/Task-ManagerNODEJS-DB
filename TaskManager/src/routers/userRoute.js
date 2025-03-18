@@ -2,7 +2,7 @@ const express = require('express')
 const router = new express.Router()
 const User = require("../models/user")
 
-//!User Post
+//!User created
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
 
@@ -13,6 +13,17 @@ router.post('/users', async (req, res) => {
         res.status(400).send(e)    
     }
 })
+
+//! User Login
+router.post("/users/login", async(req, res) => {
+    try {
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        res.send(user)
+    } catch (e) {
+    }res.status(400).send()
+
+})
+
 
 //! get all users
 router.get('/users', async(req, res) => {
@@ -60,8 +71,7 @@ router.patch('/users/:id', async(req, res) => {
     try {
         const user = await User.findById(_id)
 
-        updatez.forEach((updates) => user[updates] = req.body[updates])
-
+        updates.forEach((update) => user[update] = req.body[update])
         await user.save()
 
         if (!user) {
