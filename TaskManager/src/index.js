@@ -1,8 +1,8 @@
 const express = require('express')
 require('./db/mongoose')
-const Task = require('./models/task')
 const userRouter = require("./routers/userRoute")
 const taskRouter = require("./routers/TaskRouter")
+
 
 
 const app = express()
@@ -19,4 +19,4 @@ app.use(taskRouter)
 app.listen(port, () => {
     console.log("server running on port" + port)
 })
-//!fixing stuff from 12.3 but tentically on 12.4
+//!12.7
