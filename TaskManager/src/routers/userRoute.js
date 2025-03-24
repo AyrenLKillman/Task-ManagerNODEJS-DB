@@ -1,6 +1,7 @@
 const express = require('express')
 const router = new express.Router()
 const User = require("../models/user")
+const auth = require("../midware/auth")
 
 //!User created
 router.post('/users', async (req, res) => {
@@ -27,17 +28,9 @@ router.post('/users/login', async (req, res) => {
 })
 
 
-//! get all users
-router.get('/users', async(req, res) => {
-
-    try {
-        const users = await User.find({})
-        res.send(users)
-    } catch (e) {
-        res.status(500).send(e)
-    }
-
-
+//! get your user
+router.get('/users/me',auth,async(req, res) => {
+    res.send(req.user)
 })
 
 //! Get one user
