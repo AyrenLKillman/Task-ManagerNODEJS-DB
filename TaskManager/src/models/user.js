@@ -46,6 +46,19 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
+
+
+
+
 //! token
 userSchema.methods.generateAuthToken = async function () {
     const token = jwt.sign({ _id: this._id.toString() }, 'thisisfunstuff')
@@ -86,6 +99,12 @@ userSchema.pre('save', async function (next) {
 
     next()
 })
+
+
+
+
+
+
 
 const User = mongoose.model('User', userSchema)
 

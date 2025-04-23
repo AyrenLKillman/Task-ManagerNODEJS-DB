@@ -27,6 +27,33 @@ router.post('/users/login', async (req, res) => {
     }
 })
 
+//! logout
+
+router.post('/users/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.user.save()
+
+        res.send("this doesnt 100% work just use logout all for now")
+    }catch (e) {
+        res.status(500).send()
+    }
+})
+
+//! logout all
+
+router.post('/users/logoutALL', auth, async (req, res) => {
+    try {
+        req.user.tokens = []
+        req.user.save()
+        res.send()
+    }catch(e) {
+        res.status(500).send()
+    }
+})
+
 
 //! get your user
 router.get('/users/me',auth,async(req, res) => {
